@@ -13,4 +13,8 @@ class AdminController extends Controller
     public function AdminDashboard(){
         return view('admin.admin_dashboard');
     }
+
+    public function AdminLoginSubmit(Request $request){
+
+    }
 }
