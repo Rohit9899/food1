@@ -10,6 +10,6 @@
     <li>{{Session::get('success')}}</li>
 @endif
 
-<a href="#">Loggout</a>
+<a href="{{route('admin.logout')}}">Loggout</a>
 </body>
 </html>
