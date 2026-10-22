@@ -29,8 +29,7 @@
         <input type="password" name="password" class="form-control" id="exampleInputPassword1">
     </div>
     <div class="mb-3 form-field">
-        <input type="checkbox" id="exampleCheck1" class="check">
-        <label for="exampleCheck1">Forget Password</label>
+        <a href="{{route('admin.forget_password')}}">Forget Password</a>
     </div>
     <button type="submit" class="btn-solid theme-primary">Login</button>
 </form>
