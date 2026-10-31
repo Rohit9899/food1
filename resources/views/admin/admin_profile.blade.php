@@ -57,7 +57,8 @@
                     <!-- end card -->
 
                     <div class="card-body p-4">
-                        <form action="">
+                        <form action="{{route('admin.profile.store')}}" method="post" enctype="multipart/form-data">
+                            @csrf
                         <div class="row">
                             <div class="col-lg-6">
                                 <div>
