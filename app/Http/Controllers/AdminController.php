@@ -141,4 +141,30 @@ class AdminController extends Controller
             $profileData = Admin::find($id);
             return view('admin.admin_change_password',compact('profileData'));
         }
+
+        public function AdminPasswordUpdate(Request $request){
+            $admin = Auth::guard('admin')->user();
+            $request->validate([
+                'old_password'=>'required',
+                'new_password'=>'required|confirmed',
+            ]);
+
+            if(!Hash::check($request->old_password,$admin->password)){
+                $notification = array(
+                    'message' => 'Old password Does Not Match',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+
+            ///Update the new password
+            Admin::whereId($admin->id)->update([
+                'password'=> Hash::make($request->new_password)
+            ]);
+                $notification = array(
+                'message' => 'Password updated successfully',
+                'alert-type' => 'success'
+            );
+                return back()->with($notification);
+        }
 }
