@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Client;
+use function Laravel\Prompts\password;
 
 class ClientController extends Controller
 {
@@ -13,5 +16,26 @@ class ClientController extends Controller
 
     public function ClientRegister(){
         return view('client.client_register');
+    }
+
+    public function ClientRegisterSubmit(Request $request){
+        $request->validate([
+            'name' => ['required', 'string', 'max:200'],
+            'email' => ['required', 'string', 'email', 'unique:clients'],
+        ]);
+        Client::insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+            'role' => 'client',
+            'status' => '0',
+        ]);
+        $notification = array(
+            'message' => 'Client Registered Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('client.login')->with($notification);
     }
 }
